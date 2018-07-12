@@ -1,0 +1,10 @@
+c:\work\3partc#\Rewards.Manager.ConsoleUI\Rewards.Manager.Entities\bin\Debug\Rewards.Manager.Entities.dll
+c:\work\3partc#\Rewards.Manager.ConsoleUI\Rewards.Manager.Entities\bin\Debug\Rewards.Manager.Entities.pdb
+c:\work\3partc#\Rewards.Manager.ConsoleUI\Rewards.Manager.Entities\obj\Debug\Rewards.Manager.Entities.dll
+c:\work\3partc#\Rewards.Manager.ConsoleUI\Rewards.Manager.Entities\obj\Debug\Rewards.Manager.Entities.pdb
+C:\Users\JDDemon\Desktop\EpamSP\Finish+Dao\2\Rewards.Manager.ConsoleUI\Rewards.Manager.ConsoleUI\Rewards.Manager.Entities\bin\Debug\Rewards.Manager.Entities.dll
+C:\Users\JDDemon\Desktop\EpamSP\Finish+Dao\2\Rewards.Manager.ConsoleUI\Rewards.Manager.ConsoleUI\Rewards.Manager.Entities\bin\Debug\Rewards.Manager.Entities.pdb
+C:\Users\JDDemon\Desktop\EpamSP\Finish+Dao\2\Rewards.Manager.ConsoleUI\Rewards.Manager.ConsoleUI\Rewards.Manager.Entities\obj\Debug\Rewards.Manager.Entities.csprojResolveAssemblyReference.cache
+C:\Users\JDDemon\Desktop\EpamSP\Finish+Dao\2\Rewards.Manager.ConsoleUI\Rewards.Manager.ConsoleUI\Rewards.Manager.Entities\obj\Debug\Rewards.Manager.Entities.csproj.CoreCompileInputs.cache
+C:\Users\JDDemon\Desktop\EpamSP\Finish+Dao\2\Rewards.Manager.ConsoleUI\Rewards.Manager.ConsoleUI\Rewards.Manager.Entities\obj\Debug\Rewards.Manager.Entities.dll
+C:\Users\JDDemon\Desktop\EpamSP\Finish+Dao\2\Rewards.Manager.ConsoleUI\Rewards.Manager.ConsoleUI\Rewards.Manager.Entities\obj\Debug\Rewards.Manager.Entities.pdb
