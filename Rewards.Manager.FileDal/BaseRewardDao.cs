@@ -34,19 +34,32 @@ namespace Rewards.Manager.FileDal
                     SqlCommand command = new SqlCommand(ProcName, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter personIdParam = new SqlParameter
+                    //SqlParameter personIdParam = new SqlParameter
+                    //{
+                    //    ParameterName = "@personId",
+                    //    Value = reward.awarded.id
+                    //};
+                    //command.Parameters.Add(personIdParam);
+
+                    //SqlParameter medalIdParam = new SqlParameter
+                    //{
+                    //    ParameterName = "@medalId",
+                    //    Value = reward.medal.id
+                    //};
+                    //command.Parameters.Add(medalIdParam);
+
+                    var personIdParam = new SqlParameter("@personId", SqlDbType.Int)
                     {
-                        ParameterName = "@personId",
                         Value = reward.awarded.id
                     };
-                    command.Parameters.Add(personIdParam);
 
-                    SqlParameter medalIdParam = new SqlParameter
+                    var medalIdParam = new SqlParameter("@medalId", SqlDbType.Int)
                     {
-                        ParameterName = "@medalId",
                         Value = reward.medal.id
                     };
-                    command.Parameters.Add(medalIdParam);
+
+                    command.Parameters.AddRange(new SqlParameter[] { personIdParam, medalIdParam });
+
                     command.ExecuteNonQuery();
                     return reward;
                 }
@@ -61,19 +74,32 @@ namespace Rewards.Manager.FileDal
                     SqlCommand command = new SqlCommand(ProcName, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter personIdParam = new SqlParameter
+                    //SqlParameter personIdParam = new SqlParameter
+                    //{
+                    //    ParameterName = "@personId",
+                    //    Value = reward.awarded.id
+                    //};
+
+                    //command.Parameters.Add(personIdParam);
+                    //SqlParameter medalIdParam = new SqlParameter
+                    //{
+                    //    ParameterName = "@medalId",
+                    //    Value = reward.medal.id
+                    //};
+                    //command.Parameters.Add(medalIdParam);
+
+                    var personIdParam = new SqlParameter("@personId", SqlDbType.Int)
                     {
-                        ParameterName = "@personId",
                         Value = reward.awarded.id
                     };
 
-                    command.Parameters.Add(personIdParam);
-                    SqlParameter medalIdParam = new SqlParameter
+                    var medalIdParam = new SqlParameter("@medalId", SqlDbType.Int)
                     {
-                        ParameterName = "@medalId",
                         Value = reward.medal.id
                     };
-                    command.Parameters.Add(medalIdParam);
+
+                    command.Parameters.AddRange(new SqlParameter[] { personIdParam, medalIdParam });
+
                     command.ExecuteNonQuery();
                     return true;
                 }
@@ -93,17 +119,20 @@ namespace Rewards.Manager.FileDal
                     // указываем, что команда не представляет хранимую процедуру
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        DataTable table = new DataTable();
-                        table.Load(reader);
-                        foreach (DataRow row in table.Rows)
+
+                        if (reader.HasRows)
                         {
-                            int[] p = new int[2];
-                            p[0] = (int)row["personId"];
-                            p[1] = (int)row["medalId"];
-                            pair.Add(p);
+                            DataTable table = new DataTable();
+                            table.Load(reader);
+                            foreach (DataRow row in table.Rows)
+                            {
+                                int[] p = new int[2];
+                                p[0] = (int)row["personId"];
+                                p[1] = (int)row["medalId"];
+                                pair.Add(p);
+                            }
                         }
                     }
                 }

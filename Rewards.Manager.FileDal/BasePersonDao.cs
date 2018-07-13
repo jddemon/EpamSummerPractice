@@ -36,40 +36,69 @@ namespace Rewards.Manager.FileDal
                 SqlCommand command = new SqlCommand(ProcName, connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                SqlParameter adresParam = new SqlParameter
+                //SqlParameter adresParam = new SqlParameter
+                //{
+                //    ParameterName = "@Adres",
+                //    Value = person.Adres
+                //};
+                //command.Parameters.Add(adresParam);
+
+                //SqlParameter birthdayParam = new SqlParameter
+                //{
+                //    ParameterName = "@Birthday",
+                //    Value = person.Birthday
+                //};
+                //command.Parameters.Add(birthdayParam);
+
+                //SqlParameter vozrastParam = new SqlParameter
+                //{
+                //    ParameterName = "@Vozrast",
+                //    Value = person.Vozrast
+                //};
+                //command.Parameters.Add(vozrastParam);
+
+                //SqlParameter imjaParam = new SqlParameter
+                //{
+                //    ParameterName = "@Imja",
+                //    Value = person.Imja
+                //};
+                //command.Parameters.Add(imjaParam);
+
+                //SqlParameter familiaParam = new SqlParameter
+                //{
+                //    ParameterName = "@Familia",
+                //    Value = person.Familia
+                //};
+                //command.Parameters.Add(familiaParam);
+
+                var adresParam = new SqlParameter("@Adres", SqlDbType.VarChar)
                 {
-                    ParameterName = "@Adres",
                     Value = person.Adres
                 };
-                command.Parameters.Add(adresParam);
 
-                SqlParameter birthdayParam = new SqlParameter
+                var birthdayParam = new SqlParameter("@Birthday", SqlDbType.Date)
                 {
-                    ParameterName = "@Birthday",
                     Value = person.Birthday
                 };
-                command.Parameters.Add(birthdayParam);
 
-                SqlParameter vozrastParam = new SqlParameter
+                var vozrastParam = new SqlParameter("@Vozrast", SqlDbType.Int)
                 {
-                    ParameterName = "@Vozrast",
                     Value = person.Vozrast
                 };
-                command.Parameters.Add(vozrastParam);
 
-                SqlParameter imjaParam = new SqlParameter
+                var imjaParam = new SqlParameter("@Imja", SqlDbType.VarChar)
                 {
-                    ParameterName = "@Imja",
                     Value = person.Imja
                 };
-                command.Parameters.Add(imjaParam);
 
-                SqlParameter familiaParam = new SqlParameter
+                var familiaParam = new SqlParameter("@Familia", SqlDbType.VarChar)
                 {
-                    ParameterName = "@Familia",
                     Value = person.Familia
                 };
-                command.Parameters.Add(familiaParam);
+
+                command.Parameters.AddRange(new SqlParameter[] { adresParam, birthdayParam,
+                    vozrastParam, imjaParam, familiaParam });
+
                 var result = command.ExecuteScalar();
                 person.id=Convert.ToInt32(result);
                 return person;
@@ -91,49 +120,82 @@ namespace Rewards.Manager.FileDal
                     SqlCommand command = new SqlCommand(ProcName, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter idParam = new SqlParameter
-                    {
-                        ParameterName = "@id",
-                        Value = person.id
-                    };
-                    command.Parameters.Add(idParam);
+                //SqlParameter idParam = new SqlParameter
+                //{
+                //    ParameterName = "@id",
+                //    Value = person.id
+                //};
+                //command.Parameters.Add(idParam);
 
-                    SqlParameter adresParam = new SqlParameter
-                    {
-                        ParameterName = "@Adres",
-                        Value = person.Adres
-                    };
-                    command.Parameters.Add(adresParam);
+                //SqlParameter adresParam = new SqlParameter
+                //{
+                //    ParameterName = "@Adres",
+                //    Value = person.Adres
+                //};
+                //command.Parameters.Add(adresParam);
 
-                    SqlParameter birthdayParam = new SqlParameter
-                    {
-                        ParameterName = "@Birthday",
-                        Value = person.Birthday
-                    };
-                    command.Parameters.Add(birthdayParam);
+                //SqlParameter birthdayParam = new SqlParameter
+                //{
+                //    ParameterName = "@Birthday",
+                //    Value = person.Birthday
+                //};
+                //command.Parameters.Add(birthdayParam);
 
-                    SqlParameter vozrastParam = new SqlParameter
-                    {
-                        ParameterName = "@Vozrast",
-                        Value = person.Vozrast
-                    };
-                    command.Parameters.Add(vozrastParam);
- 
-                    SqlParameter imjaParam = new SqlParameter
-                    {
-                        ParameterName = "@Imja",
-                        Value = person.Imja
-                    };
-                    command.Parameters.Add(imjaParam);
+                //SqlParameter vozrastParam = new SqlParameter
+                //{
+                //    ParameterName = "@Vozrast",
+                //    Value = person.Vozrast
+                //};
+                //command.Parameters.Add(vozrastParam);
 
-                    SqlParameter familiaParam = new SqlParameter
-                    {
-                        ParameterName = "@Familia",
-                        Value = person.Familia
-                    };
-                    command.Parameters.Add(familiaParam);
+                //SqlParameter imjaParam = new SqlParameter
+                //{
+                //    ParameterName = "@Imja",
+                //    Value = person.Imja
+                //};
+                //command.Parameters.Add(imjaParam);
 
-                    command.ExecuteNonQuery();
+                //SqlParameter familiaParam = new SqlParameter
+                //{
+                //    ParameterName = "@Familia",
+                //    Value = person.Familia
+                //};
+                //command.Parameters.Add(familiaParam);
+
+                var idParam = new SqlParameter("@id", SqlDbType.Int)
+                {
+                    Value = person.id
+                };
+
+                var adresParam = new SqlParameter("@Adres", SqlDbType.VarChar)
+                {
+                    Value = person.Adres
+                };
+
+                var birthdayParam = new SqlParameter("@Birthday", SqlDbType.Date)
+                {
+                    Value = person.Birthday
+                };
+
+                var vozrastParam = new SqlParameter("@Vozrast", SqlDbType.Int)
+                {
+                    Value = person.Vozrast
+                };
+
+                var imjaParam = new SqlParameter("@Imja", SqlDbType.VarChar)
+                {
+                    Value = person.Imja
+                };
+
+                var familiaParam = new SqlParameter("@Familia", SqlDbType.VarChar)
+                {
+                    Value = person.Familia
+                };
+
+                command.Parameters.AddRange(new SqlParameter[] { idParam, adresParam, birthdayParam,
+                    vozrastParam, imjaParam, familiaParam });
+
+                command.ExecuteNonQuery();
                 }
                 return true;
         }
@@ -148,11 +210,18 @@ namespace Rewards.Manager.FileDal
                     SqlCommand command = new SqlCommand(ProcName, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter idParam = new SqlParameter
+                //SqlParameter idParam = new SqlParameter
+                //{
+                //    ParameterName = "@id",
+                //    Value = id
+                //};
+                //command.Parameters.Add(idParam);
+
+                    var idParam = new SqlParameter("@id", SqlDbType.Int)
                     {
-                        ParameterName = "@id",
                         Value = id
                     };
+
                     command.Parameters.Add(idParam);
 
                     command.ExecuteNonQuery();
@@ -176,25 +245,27 @@ namespace Rewards.Manager.FileDal
                     // указываем, что команда представляет хранимую процедуру
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     // запрос возвращает ридер для получения таблицы
-                    SqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        // для получения данных создаем таблицу
-                        DataTable table = new DataTable();
-                        //загружаем таблицу из ридера
-                        table.Load(reader);
-
-                        // выбираем данные из таблицы и создаем список персон
-                        foreach (DataRow row in table.Rows)
+                        if (reader.HasRows)
                         {
-                            Person p = new Person();
-                            p.id = (int)row["id"];
-                            p.Imja = row["Imja"].ToString();
-                            p.Familia = row["Familia"].ToString();
-                            p.Birthday = (DateTime)row["Birthday"];
-                            p.Vozrast = (int)row["Vozrast"];
-                            p.Adres = row["Adres"].ToString();
-                            persons.Add(p);
+                            // для получения данных создаем таблицу
+                            DataTable table = new DataTable();
+                            //загружаем таблицу из ридера
+                            table.Load(reader);
+
+                            // выбираем данные из таблицы и создаем список персон
+                            foreach (DataRow row in table.Rows)
+                            {
+                                Person p = new Person();
+                                p.id = (int)row["id"];
+                                p.Imja = row["Imja"].ToString();
+                                p.Familia = row["Familia"].ToString();
+                                p.Birthday = (DateTime)row["Birthday"];
+                                p.Vozrast = (int)row["Vozrast"];
+                                p.Adres = row["Adres"].ToString();
+                                persons.Add(p);
+                            }
                         }
                     }
                 }

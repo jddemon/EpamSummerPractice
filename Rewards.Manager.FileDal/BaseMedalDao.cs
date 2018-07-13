@@ -34,21 +34,33 @@ namespace Rewards.Manager.FileDal
                 SqlCommand command = new SqlCommand(ProcName, connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                // параметр для ввода имени
-                SqlParameter medalMameParam = new SqlParameter
+                //// параметр для ввода имени
+                //SqlParameter medalMameParam = new SqlParameter
+                //{
+                //    ParameterName = "@Name",
+                //    Value = medal.Name
+                //};
+                //// добавляем параметр
+                //command.Parameters.Add(medalMameParam);
+
+                //SqlParameter materialNameParam = new SqlParameter
+                //{
+                //    ParameterName = "@Material",
+                //    Value = medal.Material
+                //};
+                //command.Parameters.Add(materialNameParam);
+
+                var medalNameParam = new SqlParameter("@Name", SqlDbType.VarChar)
                 {
-                    ParameterName = "@Name",
                     Value = medal.Name
                 };
-                // добавляем параметр
-                command.Parameters.Add(medalMameParam);
 
-                SqlParameter materialNameParam = new SqlParameter
+                var materialNameParam = new SqlParameter("@Material", SqlDbType.VarChar)
                 {
-                    ParameterName = "@Material",
                     Value = medal.Material
                 };
-                command.Parameters.Add(materialNameParam);
+
+                command.Parameters.AddRange(new SqlParameter[] { medalNameParam, materialNameParam });
 
                 var medalId = command.ExecuteScalar();
 
@@ -69,30 +81,48 @@ namespace Rewards.Manager.FileDal
                     SqlCommand command = new SqlCommand(ProcName, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    // параметр для ввода имени
-                    SqlParameter medalMameParam = new SqlParameter
-                    {
-                        ParameterName = "@Name",
-                        Value = medal.Name
-                    };
-                    // добавляем параметр
-                    command.Parameters.Add(medalMameParam);
+                //// параметр для ввода имени
+                //SqlParameter medalMameParam = new SqlParameter
+                //{
+                //    ParameterName = "@Name",
+                //    Value = medal.Name
+                //};
+                //// добавляем параметр
+                //command.Parameters.Add(medalMameParam);
 
-                    SqlParameter materialNameParam = new SqlParameter
-                    {
-                        ParameterName = "@Material",
-                        Value = medal.Material
-                    };
-                    command.Parameters.Add(materialNameParam);
+                //SqlParameter materialNameParam = new SqlParameter
+                //{
+                //    ParameterName = "@Material",
+                //    Value = medal.Material
+                //};
+                //command.Parameters.Add(materialNameParam);
 
-                    SqlParameter medalIdParam = new SqlParameter
-                    {
-                        ParameterName = "@id",
-                        Value = medal.id
-                    };
-                    command.Parameters.Add(medalIdParam);
+                //SqlParameter medalIdParam = new SqlParameter
+                //{
+                //    ParameterName = "@id",
+                //    Value = medal.id
+                //};
+                //command.Parameters.Add(medalIdParam);
 
-                    command.ExecuteNonQuery();
+                var medalNameParam = new SqlParameter("@Name", SqlDbType.VarChar)
+                {
+                    Value = medal.Name
+                };
+
+                var materialNameParam = new SqlParameter("@Material", SqlDbType.VarChar)
+                {
+                    Value = medal.Material
+                };
+
+                var medalIdParam = new SqlParameter("@id", SqlDbType.Int)
+                {
+                    Value = medal.id
+                };
+
+                command.Parameters.AddRange(new SqlParameter[] { medalNameParam, materialNameParam, medalIdParam });
+
+
+                command.ExecuteNonQuery();
                     return true;
                 }
         }
@@ -101,22 +131,37 @@ namespace Rewards.Manager.FileDal
         {
             string ProcName = "DeleteMedal";
 
-                using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(ProcName, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                //SqlParameter medalIdParam = new SqlParameter
+                //{
+                //    ParameterName = "@id",
+                //    Value = id
+                //};
+                //command.Parameters.Add(medalIdParam);
+
+                var medalIdParam = new SqlParameter("@id", SqlDbType.Int)
                 {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(ProcName, connection);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    Value = id
+                };
 
-                    SqlParameter medalIdParam = new SqlParameter
-                    {
-                        ParameterName = "@id",
-                        Value = id
-                    };
-                    command.Parameters.Add(medalIdParam);
+                command.Parameters.Add(medalIdParam);
 
+                try
+                {
                     command.ExecuteNonQuery();
                     return true;
                 }
+                catch (Exception ex)
+                {
+
+                    throw new Exception($"{ex.TargetSite}: Конфликт инструкции DELETE с ограничением REFERENCE [FK_Reward_Medal]. Конфликт произошел в базе данных [nagrady], таблица [dbo.Reward], [column] 'medalId'.");
+                }
+            }
         }
 
         public Medal GetById(int id)
@@ -136,18 +181,20 @@ namespace Rewards.Manager.FileDal
                     SqlCommand command = new SqlCommand(ProcName, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    var reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (var reader = command.ExecuteReader())
                     {
-                        DataTable table = new DataTable();
-                        table.Load(reader);
-                        foreach (DataRow row in table.Rows)
+                        if (reader.HasRows)
                         {
-                            Medal p = new Medal();
-                            p.id = (int)row["id"];
-                            p.Name = row["Name"].ToString();
-                            p.Material = row["Material"].ToString();
-                            medals.Add(p);
+                            DataTable table = new DataTable();
+                            table.Load(reader);
+                            foreach (DataRow row in table.Rows)
+                            {
+                                Medal p = new Medal();
+                                p.id = (int)row["id"];
+                                p.Name = row["Name"].ToString();
+                                p.Material = row["Material"].ToString();
+                                medals.Add(p);
+                            }
                         }
                     }
                 }
